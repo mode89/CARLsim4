@@ -10,6 +10,13 @@
     set_property(TARGET carlsim-simple-weight-tuner PROPERTY
         POSITION_INDEPENDENT_CODE TRUE)
 
+# Includes
+
+    target_include_directories(carlsim-simple-weight-tuner
+        PUBLIC
+            .
+    )
+
 # Linking
 
     target_link_libraries(carlsim-simple-weight-tuner

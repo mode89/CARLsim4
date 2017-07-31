@@ -10,6 +10,13 @@
     set_property(TARGET carlsim-stopwatch PROPERTY
         POSITION_INDEPENDENT_CODE TRUE)
 
+# Includes
+
+    target_include_directories(carlsim-stopwatch
+        PUBLIC
+            .
+    )
+
 # Linking
 
     target_link_libraries(carlsim-stopwatch
