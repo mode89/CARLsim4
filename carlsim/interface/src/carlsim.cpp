@@ -664,6 +664,7 @@ public:
 
 	// run network with custom options
 	int runNetwork(int nSec, int nMsec, bool printRunSummary) {
+        printf("CARLsim::runNetwork\n");
 		std::string funcName = "runNetwork()";
 		UserErrors::assertTrue(carlsimState_ == SETUP_STATE || carlsimState_ == RUN_STATE,
 				UserErrors::CAN_ONLY_BE_CALLED_IN_STATE, funcName, funcName, "SETUP or RUN.");

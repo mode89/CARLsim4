@@ -1,9 +1,9 @@
 #!/bin/bash
 
-numNeuron='2000'
+numNeuron='1000'
 numSynapse=(100 200 300 400 500 600)
-numCore='1 2 4 8 16'
-index=' 0 1 2 3 4 5'
+numCore=16
+index=2
 weight=(1.9921 1.0085 0.7097 0.5529 0.4109 0.3455)
 
 
