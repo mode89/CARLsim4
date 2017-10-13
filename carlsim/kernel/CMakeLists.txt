@@ -1,19 +1,4 @@
-# Dependencies
-
-    if(NOT CARLSIM_NO_CUDA)
-        find_package(CUDA REQUIRED)
-    endif()
-
 # Targets
-
-    if(NOT CARLSIM_NO_CUDA)
-        cuda_add_library(carlsim-kernel-cuda
-            src/gpu_module/snn_gpu_module.cu
-            OPTIONS
-                -Xcompiler -fPIC
-                -gencode arch=compute_30,code=sm_30
-        )
-    endif()
 
     add_library(carlsim-kernel
         src/print_snn_info.cpp
@@ -35,23 +20,9 @@
             PUBLIC
                 -D__NO_CUDA__
         )
-    else()
-        target_compile_definitions(carlsim-kernel-cuda
-            PUBLIC
-                -D__CUDA${CUDA_VERSION_MAJOR}__
-        )
     endif()
 
 # Includes
-
-    if(NOT CARLSIM_NO_CUDA)
-        target_include_directories(carlsim-kernel-cuda
-            PUBLIC
-                inc
-                ${CUDA_INCLUDE_DIRS}
-                ${CUDA_TOOLKIT_ROOT_DIR}/samples/common/inc
-        )
-    endif()
 
     target_include_directories(carlsim-kernel
         PUBLIC
@@ -68,10 +39,6 @@
     endif()
 
     if(NOT CARLSIM_NO_CUDA)
-        target_link_libraries(carlsim-kernel-cuda
-            ${CUDA_curand_LIBRARY}
-        )
-
         target_link_libraries(carlsim-kernel
             PUBLIC
                 carlsim-kernel-cuda
@@ -89,3 +56,10 @@
             inc/snn.h
             inc/spike_buffer.h
         DESTINATION include)
+
+# Subdirectories
+
+    if(NOT CARLSIM_NO_CUDA)
+        set(CARLSIM_KERNEL_INCLUDE_DIR "${CMAKE_CURRENT_LIST_DIR}/inc")
+        add_subdirectory(src/gpu_module)
+    endif()
